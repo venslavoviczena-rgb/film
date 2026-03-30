@@ -1,0 +1,62 @@
+// 1. ИНИЦИАЛИЗАЦИЯ ДАННЫХ
+// Пытаемся загрузить данные, если их нет используем пустой массив
+const rawData = localStorage.getItem("film_list");
+let items = rawData ? JSON.parse(rawData) : [];
+
+// Ссылки на элементы DOM
+const form = document.querySelector("#film-form");
+const input = document.querySelector("#item-input");
+const container = document.querySelector("#list-container");
+const clearBtn = document.querySelector("#clear-btn");
+const url = document.querySelector("#url");
+
+
+// Функция сохранения данных в localStorage
+function save() {
+  // Превращаем массив объектов в JSON-строку
+  localStorage.setItem("film_list", JSON.stringify(items));
+}
+// Функция отрисовки интерфейса
+function render() {
+  container.innerHTML = "";
+  // Очищаем список перед перерисовкой
+  items.forEach((product) => {
+    const li = document.createElement("li");
+    li.className = "item";
+    // Добавляем текст в элемент списка
+    li.innerHTML = `<div>
+    <span>${product.title}</span>
+    <span>${product.film_url}</span>
+    </div>`;
+    container.appendChild(li);
+  });
+}
+// Добавление нового товара
+form.addEventListener("submit", (e) => {
+  e.preventDefault(); // Отмена перезагрузки страницы
+  const newItem = {
+    title: input.value,
+    film_url: url.value,
+  };
+  items.push(newItem);
+  // Добавляем в массив
+  save();
+  // Сохраняем в localStorage
+  render();
+  // Обновляем экран
+  input.value = "";
+  url.value = "";
+  // Очищаем поле ввода
+});
+// Полная очистка
+clearBtn.addEventListener("click", () => {
+  if (confirm("Очистить весь список?")) {
+    items = [];
+    localStorage.removeItem("film_list"); // Или localStorage.clear()
+    render();
+  }
+});
+// 3. ЗАПУСК ПРИ СТАРТЕ
+// Вызываем рендер сразу, чтобы показать сохраненные данные
+render();
+

@@ -1,0 +1,27 @@
+
+.introduction{
+    text-align:center;
+}
+.button{
+    cursor: pointer;
+    border-radius: 15px;
+}
+.button:hover{
+    color: rgb(250, 26, 26);
+    background-color: rgb(9, 9, 82);
+}
+h1{
+    color: black;
+}
+.button_clear{
+    border-radius: 15px;
+}
+.button_clear:hover{
+    cursor:pointer;
+    color: rgb(250, 26, 26);
+    background-color:rgb(9, 9, 82) ;
+}
+iframe{
+    width: 900px;
+    height: 700px;
+}
